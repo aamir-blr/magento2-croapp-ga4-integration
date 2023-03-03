@@ -18,6 +18,12 @@
     <event name="search_query_load_after">
         <observer name="Croapp_Integration_products_searched" instance="Croapp\Integration\Observer\ProductsSearched"/>
     </event>
+    <event name="checkout_cart_add_product_complete">
+        <observer name="Croapp_Integration_add_cart" instance="Croapp\Integration\Observer\Cart\AddCart"/>
+    </event>
+    <event name="sales_quote_remove_item">
+        <observer name="Croapp_Integration_remove_cart" instance="Croapp\Integration\Observer\Cart\RemoveCart"/>
+    </event>
     <event name="controller_action_predispatch_checkout_cart_index">
         <observer name="Croapp_Integration_view_cart" instance="Croapp\Integration\Observer\Cart\ViewCart"/>
     </event>

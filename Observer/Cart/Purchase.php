@@ -100,7 +100,6 @@ class Purchase implements ObserverInterface
                 $eventData['items'][] = $orderItem;
             }
 
-
             $eventData['order_email'] = $order->getCustomerEmail();
             $eventData['is_guest'] = $order->getCustomerIsGuest();
             $eventData['shipping_method'] = $order->getShippingDescription();

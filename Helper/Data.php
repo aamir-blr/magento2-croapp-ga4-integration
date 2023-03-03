@@ -56,6 +56,8 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             'sign_up'             =>  'sign_up',
             'login'               =>  'login',
             'logout'              =>  'logout',
+            'add_to_cart'         =>  'add_to_cart',
+            'remove_from_cart'    =>  'remove_from_cart',
             'view_cart'           =>  'view_cart',
             'begin_checkout'      =>  'begin_checkout',
             'purchase'            =>  'purchase',

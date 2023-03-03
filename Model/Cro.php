@@ -4,6 +4,7 @@ namespace Croapp\Integration\Model;
 use Magento\Framework\Session\SessionManagerInterface;
 use Magento\Framework\View\LayoutInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Framework\Stdlib\DateTime\DateTime;
 
 class Cro extends \Magento\Framework\Session\SessionManager
 {
@@ -30,22 +31,30 @@ class Cro extends \Magento\Framework\Session\SessionManager
     protected $_fwSession;
 
     /**
+     * @var \Magento\Framework\Session\SessionManagerInterface
+     */
+    protected $date;
+
+    /**
      * Constructor
      *
      * @param \Magento\Framework\View\LayoutInterface $_layout
      * @param \Magento\Store\Model\StoreManagerInterface $_storeManager
      * @param \Magento\Framework\Session\SessionManagerInterface $_fwSession
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
      * @param \Croapp\Integration\Helper\Data $_dataHelper
      */
     public function __construct(
         LayoutInterface $_layout,
         StoreManagerInterface $_storeManager,
         SessionManagerInterface $_fwSession,
+        DateTime $date,
         \Croapp\Integration\Helper\Data $_dataHelper
     ) {
         $this->_layout = $_layout;
         $this->_storeManager = $_storeManager;
         $this->_fwSession = $_fwSession;
+        $this->date = $date;
         $this->_dataHelper = $_dataHelper;
     }
 
@@ -145,6 +154,7 @@ class Cro extends \Magento\Framework\Session\SessionManager
     public function addMetaData($eventData = [])
     {
         $eventData['pv'] = $this->_dataHelper->getModuleVersion();
+        $eventData['dt'] = $this->date->gmtTimestamp();
         return $eventData;
     }
 
