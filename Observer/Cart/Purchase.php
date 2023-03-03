@@ -71,8 +71,6 @@ class Purchase implements ObserverInterface
                 return;
             }
 
-            $eventData = [];
-            $eventData['items'] = [];
             $store = $this->_storeManager->getStore();
             $currency = is_object($store) ? $store->getCurrentCurrencyCode() : null;
             $order = $this->_salesOrderFactory->create()->load($orderIds[0]);
@@ -80,41 +78,40 @@ class Purchase implements ObserverInterface
                 return;
             }
 
+            $eventData = [];
+            $eventData['currency'] = $currency;
+            $eventData['transaction_id'] = $order->getIncrementId();
+            $eventData['value'] = $order->getGrandTotal();
+            $eventData['coupon'] = $order->getCouponCode();
+            $eventData['items'] = [];
             foreach ($order->getAllVisibleItems() as $item) {
                 $orderItem = [];
-                $orderItem['name'] = str_replace("'", "", $item->getName());
+                $orderItem['item_id'] = $item->getProductId();
+                $orderItem['item_name'] = str_replace("'", "", $item->getName());
                 $orderItem['price'] = $item->getPrice();
-                $orderItem['currency'] = $currency;
                 $orderItem['quantity'] = $item->getQtyOrdered();
-                $orderItem['id'] = $item->getProductId();
-                $orderItem['sku'] = $item->getSku();
 
+                // additional params
+                $orderItem['item_sku'] = $item->getSku();
                 $product = $item->getProduct();
                 if (is_object($product)) {
-                    $orderItem['url'] = $product->getProductUrl();
+                    $orderItem['item_url'] = $product->getProductUrl();
                 }
                 $eventData['items'][] = $orderItem;
             }
 
-            $eventData['orderId'] = $order->getIncrementId();
+
             $eventData['order_email'] = $order->getCustomerEmail();
-            $eventData['currency'] = $currency;
             $eventData['is_guest'] = $order->getCustomerIsGuest();
-            $eventData['coupon_code'] = $order->getCouponCode();
             $eventData['shipping_method'] = $order->getShippingDescription();
             $eventData['payment_method'] = $order->getPayment()->getMethod();
             $eventData['status'] = $order->getStatus();
-            $eventData['currency'] = $currency;
-            $eventData['total'] = $order->getGrandTotal();
 
             // $ccData['event_data']['shipping_amount'] = $cc->getValue($order->getShippingAmount());
             // $ccData['event_data']['tax_amount'] = $cc->getValue($order->getTaxAmount());
             // $ccData['event_data']['discount_amount'] = $cc->getValue($order->getDiscountAmount());
             // $ccView['event_data']['subtotal'] = $cc->getValue($order->getSubtotal());
-
             // $ccData['event_data']['base_total'] = $cc->getValue($order->getBaseGrandTotal());
-            // $ccData['event_data']['total_due'] = $cc->getValue($order->getTotalDue());
-            // $ccData['event_data']['base_total_due'] = $cc->getValue($order->getBaseTotalDue());
 
             $eventName = 'purchase';
             $this->_croModel->storeGaEvents($eventName, $eventData);

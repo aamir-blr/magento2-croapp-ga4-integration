@@ -79,34 +79,35 @@ class ViewItem implements ObserverInterface
             $eventData = [];
             $product = $this->_registry->registry('current_product');
             if (is_object($product)) {
+                $itemImage = null;
+                $itemInternalType = $product->getTypeId();
+                $store = $this->_storeManager->getStore();
+                $stock = $this->_stockItemRepository->getStockItem($product->getId());
+                if (!empty($product->getImage())) {
+                    $itemImage = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                    $itemImage.= 'catalog/product'.$product->getImage();
+                }
+
                 $eventData = [
-                    'id' => $product->getId(),
-                    'url' => $product->getProductUrl(),
-                    'name' => $product->getName(),
-                    'price' => $product->getPrice(),
-                    'final_price' => $product->getFinalPrice(),
-                    'sku' => $product->getSku(),
-                    'type' => $product->getTypeId()
+                    'currency' => is_object($store) ? $store->getCurrentCurrencyCode() : null,
+                    'value' => $product->getFinalPrice(),
                 ];
 
-                $store = $this->_storeManager->getStore();
-                $eventData['currency'] = is_object($store) ? $store->getCurrentCurrencyCode() : null;
-                if (!empty($product->getImage())) {
-                    $eventData['image'] = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-                    $eventData['image'].= 'catalog/product'.$product->getImage();
-                } else {
-                    $eventData['image'] = null;
-                }
-                $stock = $this->_stockItemRepository->getStockItem($product->getId());
-                $eventData['is_in_stock'] = is_object($stock) ? $stock->getIsInStock() : null;
-                if ($eventData['type'] == "configurable") {
-                    $eventData['product_type'] = "parent";
-                    $childProducts = $this->_configurableProductProductTypeConfigurableFactory->create()
-                                        ->getChildrenIds($product->getId());
-                    $eventData['child_ids'] = $childProducts[0];
-                } else {
-                    $eventData['product_type'] = "simple";
-                }
+                $item = [
+                    'item_id' => $product->getId(),
+                    'item_name' => $product->getName(),
+                    'price' => $product->getFinalPrice(),
+
+                    // additional params
+                    'item_url' => $product->getProductUrl(),
+                    'item_image' => $itemImage,
+                    'item_sku' => $product->getSku(),
+                    'item_internal_type' => $itemInternalType,
+                    'item_type' => $itemInternalType == "configurable" ? 'parent' : 'simple',
+                    'item_original_price' => $product->getPrice(),
+                    'item_in_stock' => is_object($stock) ? $stock->getIsInStock() : null,
+                ];
+                $eventData['items'][] = $item;
             }
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {

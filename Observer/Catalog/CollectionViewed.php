@@ -52,9 +52,9 @@ class CollectionViewed implements ObserverInterface
             $eventData = [];
             $category = $this->_registry->registry('current_category');
             if (is_object($category)) {
-                $eventData['item_list_name'] = $category->getName();
                 $eventData['item_list_id'] = $category->getId();
-                $eventData['item_list_url'] = $category->getUrl();
+                $eventData['item_list_name'] = $category->getName();
+                $eventData['items'] = [];
             }
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {

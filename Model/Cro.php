@@ -138,15 +138,13 @@ class Cro extends \Magento\Framework\Session\SessionManager
     }
 
     /**
-     * Add meta data to gtag events
+     * Add meta data - pv (plugin_version) to gtag events, can be used to debug later
      *
      * @param array $eventData - event data to be added to gtag script
      */
     public function addMetaData($eventData = [])
     {
-        $metaData = [];
-        $metaData['plugin_version'] = $this->_dataHelper->getModuleVersion();
-        $eventData['meta_data'] = $metaData;
+        $eventData['pv'] = $this->_dataHelper->getModuleVersion();
         return $eventData;
     }
 
@@ -161,37 +159,37 @@ class Cro extends \Magento\Framework\Session\SessionManager
         if (!is_object($quote)) {
             return;
         }
+
         $cartItems = $quote->getAllVisibleItems();
         $eventData = [];
         $eventData['currency'] = $currency;
+        $eventData['value'] = $quote->getGrandTotal();
         $eventData['items'] = [];
         foreach ($cartItems as $item) {
             $cartItem = [];
-            $cartItem['name'] = str_replace("'", "", $item->getName());
+            $cartItem['item_id'] = $item->getProductId();
+            $cartItem['item_name'] = str_replace("'", "", $item->getName());
             $cartItem['price'] = $item->getPrice();
-            $cartItem['currency'] = $currency;
             $cartItem['quantity'] = $item->getQty();
-            $cartItem['id'] = $item->getProductId();
-            $cartItem['sku'] = $item->getSku();
-            $cartItem['customOptions'] = $this->getCartItemOptions($item);
 
+            // additional params
+            $cartItem['item_sku'] = $item->getSku();
+            $cartItem['item_custom_options'] = $this->getCartItemOptions($item);
             $product = $item->getProduct();
             if (is_object($product)) {
-                $cartItem['url'] = $product->getProductUrl();
+                $cartItem['item_url'] = $product->getProductUrl();
                 if (!empty($product->getSmallImage())) {
                     $store = $this->_storeManager->getStore();
-                    $cartItem['image'] = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
-                    $cartItem['image'].= 'catalog/product'.$product->getSmallImage();
+                    $cartItem['item_image'] = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+                    $cartItem['item_image'].= 'catalog/product'.$product->getSmallImage();
                 }
             }
             $eventData['items'][] = $cartItem;
         }
-        $eventData['currency'] = $currency;
-        $eventData['coupon_code'] = $quote->getCouponCode();
-        $eventData['subtotal'] = $quote->getSubtotal();
-        $eventData['total'] = $quote->getGrandTotal();
-        $eventData['base_total'] = $quote->getBaseGrandTotal();
 
+        $eventData['coupon'] = $quote->getCouponCode();
+        $eventData['subtotal'] = $quote->getSubtotal();
+        $eventData['base_total'] = $quote->getBaseGrandTotal();
         return $eventData;
     }
 
