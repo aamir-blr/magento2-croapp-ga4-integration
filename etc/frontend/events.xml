@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="layout_render_before">
+        <observer name="Croapp_Integration" instance="Croapp\Integration\Observer\AddScript"/>
+    </event>
+    <event name="controller_action_postdispatch_cms_index_index">
+        <observer name="Croapp_Integration_home_viewed" instance="Croapp\Integration\Observer\HomeViewed"/>
+    </event>
+    <event name="controller_action_predispatch_cms_page_view">
+        <observer name="Croapp_Integration_contentpage_viewed" instance="Croapp\Integration\Observer\ContentpageViewed"/>
+    </event>
+    <event name="controller_action_postdispatch_catalog_product_view">
+        <observer name="Croapp_Integration_view_item" instance="Croapp\Integration\Observer\Catalog\ViewItem"/>
+    </event>
+    <event name="controller_action_postdispatch_catalog_category_view">
+        <observer name="Croapp_Integration_collection_viewed" instance="Croapp\Integration\Observer\Catalog\CollectionViewed"/>
+    </event>
+    <event name="search_query_load_after">
+        <observer name="Croapp_Integration_products_searched" instance="Croapp\Integration\Observer\ProductsSearched"/>
+    </event>
+    <event name="controller_action_predispatch_checkout_cart_index">
+        <observer name="Croapp_Integration_view_cart" instance="Croapp\Integration\Observer\Cart\ViewCart"/>
+    </event>
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="Croapp_Integration_checkout_viewed" instance="Croapp\Integration\Observer\Cart\CheckoutViewed"/>
+    </event>
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="Croapp_Integration_purchase" instance="Croapp\Integration\Observer\Cart\Purchase"/>
+    </event>
+    <event name="customer_register_success">
+        <observer name="Croapp_Integration_sign_up" instance="Croapp\Integration\Observer\Customer\SignUp"/>
+    </event>
+    <event name="customer_login">
+        <observer name="Croapp_Integration_login" instance="Croapp\Integration\Observer\Customer\Login"/>
+    </event>
+    <event name="customer_logout">
+        <observer name="Croapp_Integration_logout" instance="Croapp\Integration\Observer\Customer\Logout"/>
+    </event>
+</config>

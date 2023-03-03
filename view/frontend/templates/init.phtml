@@ -1,0 +1,11 @@
+<?php
+?>
+<script type="text/javascript">
+  require([
+    "https://www.googletagmanager.com/gtag/js?id=<?= $gaId; ?>"
+  ]);
+  window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '<?= $gaId; ?>');
+</script>
