@@ -28,6 +28,14 @@ class ViewCart implements ObserverInterface
      */
     protected $_checkoutSession;
 
+    /**
+     * Constructor
+     *
+     * @param \Magento\Store\Model\StoreManagerInterface $_storeManager
+     * @param \Magento\Checkout\Model\Session $_checkoutSession
+     * @param \Croapp\Integration\Logger\Logger $_logger
+     * @param \Croapp\Integration\Model\Cro $_croModel
+     */
     public function __construct(
         StoreManagerInterface $_storeManager,
         Session $_checkoutSession,
@@ -40,6 +48,12 @@ class ViewCart implements ObserverInterface
         $this->_croModel = $_croModel;
     }
 
+    /**
+     * Add view_cart event
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {

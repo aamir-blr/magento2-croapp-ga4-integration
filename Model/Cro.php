@@ -23,10 +23,20 @@ class Cro extends \Magento\Framework\Session\SessionManager
     protected $_dataHelper;
 
     /**
+     * Session, used to store events data temporarily
+     *
      * @var \Magento\Framework\Session\SessionManagerInterface
      */
     protected $_fwSession;
 
+    /**
+     * Constructor
+     *
+     * @param \Magento\Framework\View\LayoutInterface $_layout
+     * @param \Magento\Store\Model\StoreManagerInterface $_storeManager
+     * @param \Magento\Framework\Session\SessionManagerInterface $_fwSession
+     * @param \Croapp\Integration\Helper\Data $_dataHelper
+     */
     public function __construct(
         LayoutInterface $_layout,
         StoreManagerInterface $_storeManager,
@@ -39,6 +49,9 @@ class Cro extends \Magento\Framework\Session\SessionManager
         $this->_dataHelper = $_dataHelper;
     }
 
+    /**
+     * Get initial script block to be added in the page
+     */
     public function getInitScript()
     {
         if ($this->_dataHelper->isEnabled() == false) {
@@ -49,7 +62,7 @@ class Cro extends \Magento\Framework\Session\SessionManager
         if (empty($gaId)) {
             return;
         }
-        $script = $this->_layout->createBlock('Croapp\Integration\Block\Script')
+        $script = $this->_layout->createBlock(\Croapp\Integration\Block\Script::class)
                 ->setTemplate('Croapp_Integration::init.phtml')
                 ->assign([
                     'gaId' => $gaId
@@ -57,6 +70,11 @@ class Cro extends \Magento\Framework\Session\SessionManager
         return $script;
     }
 
+    /**
+     * Get gtag event script block to be added in the page
+     *
+     * @param array $eventData - event data to be added to gtag script
+     */
     public function getEventScript($eventData = [])
     {
         if ($this->_dataHelper->isEnabled() == false) {
@@ -65,15 +83,21 @@ class Cro extends \Magento\Framework\Session\SessionManager
 
         $event = isset($eventData['event']) ? $eventData['event'] : 'unknown-event';
         unset($eventData['event']);
-        $script = $this->_layout->createBlock('Croapp\Integration\Block\Script')
-        ->setTemplate('Croapp_Integration::event.phtml')
-        ->assign([
-            'eventData' => json_encode($eventData),
-            'event' => json_encode($event)
-        ]);
+        $script = $this->_layout->createBlock(\Croapp\Integration\Block\Script::class)
+                ->setTemplate('Croapp_Integration::event.phtml')
+                ->assign([
+                    'eventData' => json_encode($eventData),
+                    'event' => $event
+                ]);
         return $script;
     }
 
+    /**
+     * Store gtag events data in session
+     *
+     * @param string $eventName - name of the event
+     * @param array $eventData - event data to be added to gtag script
+     */
     public function storeGaEvents($eventName, $eventData = [])
     {
         if ($this->_dataHelper->isEnabled() == false) {
@@ -95,6 +119,9 @@ class Cro extends \Magento\Framework\Session\SessionManager
         $this->_fwSession->setGaEvents($gaEvents);
     }
 
+    /**
+     * Fetch gtag events data in session
+     */
     public function fetchGaEvents()
     {
         if ($this->_dataHelper->isEnabled() == false) {
@@ -110,6 +137,11 @@ class Cro extends \Magento\Framework\Session\SessionManager
         }
     }
 
+    /**
+     * Add meta data to gtag events
+     *
+     * @param array $eventData - event data to be added to gtag script
+     */
     public function addMetaData($eventData = [])
     {
         $metaData = [];
@@ -118,6 +150,12 @@ class Cro extends \Magento\Framework\Session\SessionManager
         return $eventData;
     }
 
+    /**
+     * Get cart event data
+     *
+     * @param \Magento\Quote\Model\Quote $quote - event data to be added to gtag script
+     * @param string $currency - currency of cart items
+     */
     public function getCartEventData($quote, $currency)
     {
         if (!is_object($quote)) {
@@ -157,6 +195,11 @@ class Cro extends \Magento\Framework\Session\SessionManager
         return $eventData;
     }
 
+    /**
+     * Get cart item custom options
+     *
+     * @param \Magento\Quote\Model\Quote\Item $item - magento quote item
+     */
     public function getCartItemOptions($item)
     {
         if (!is_object($item)) {
@@ -192,6 +235,11 @@ class Cro extends \Magento\Framework\Session\SessionManager
         return $customOptions;
     }
 
+    /**
+     * Get customer data
+     *
+     * @param \Magento\Customer\Model\Customer $customer - magento customer
+     */
     public function getCustomerData($customer)
     {
         if (!is_object($customer)) {

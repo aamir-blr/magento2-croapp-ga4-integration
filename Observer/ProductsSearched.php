@@ -22,6 +22,13 @@ class ProductsSearched implements ObserverInterface
      */
     protected $_dataHelper;
 
+    /**
+     * Constructor
+     *
+     * @param \Croapp\Integration\Logger\Logger $_logger
+     * @param \Croapp\Integration\Model\Cro $_croModel
+     * @param \Croapp\Integration\Helper\Data $_dataHelper
+     */
     public function __construct(
         \Croapp\Integration\Logger\Logger $_logger,
         \Croapp\Integration\Model\Cro $_croModel,
@@ -32,6 +39,12 @@ class ProductsSearched implements ObserverInterface
         $this->_dataHelper = $_dataHelper;
     }
 
+    /**
+     * Add view_search_results event
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {

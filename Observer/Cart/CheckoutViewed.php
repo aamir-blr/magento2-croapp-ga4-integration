@@ -24,10 +24,20 @@ class CheckoutViewed implements ObserverInterface
     protected $_storeManager;
 
     /**
+     * Session Checkout
+     *
      * @var \Magento\Checkout\Model\Session
      */
     protected $_checkoutSession;
 
+    /**
+     * Constructor
+     *
+     * @param \Magento\Store\Model\StoreManagerInterface $_storeManager
+     * @param \Magento\Checkout\Model\Session $_checkoutSession
+     * @param \Croapp\Integration\Logger\Logger $_logger
+     * @param \Croapp\Integration\Model\Cro $_croModel
+     */
     public function __construct(
         StoreManagerInterface $_storeManager,
         Session $_checkoutSession,
@@ -40,6 +50,12 @@ class CheckoutViewed implements ObserverInterface
         $this->_croModel = $_croModel;
     }
 
+    /**
+     * Add checkout event
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {

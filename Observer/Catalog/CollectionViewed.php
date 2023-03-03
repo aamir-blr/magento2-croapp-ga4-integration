@@ -22,6 +22,13 @@ class CollectionViewed implements ObserverInterface
      */
     protected $_croModel;
 
+    /**
+     * Constructor
+     *
+     * @param \Magento\Framework\Registry $_registry
+     * @param \Croapp\Integration\Logger\Logger $_logger
+     * @param \Croapp\Integration\Model\Cro $_croModel
+     */
     public function __construct(
         Registry $_registry,
         \Croapp\Integration\Logger\Logger $_logger,
@@ -32,6 +39,12 @@ class CollectionViewed implements ObserverInterface
         $this->_croModel = $_croModel;
     }
 
+    /**
+     * Add collection_viewed event
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {

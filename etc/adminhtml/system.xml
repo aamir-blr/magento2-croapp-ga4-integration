@@ -12,8 +12,8 @@
                 <label>CRO App / GA 4 Configuration</label>
                 <comment></comment>
                 <field id="gaId" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <label>Account Id</label>
-                    <comment>Get it from GA -> Data Streams -> Tag Instructions.</comment>
+                    <label>GA-4 Measurement ID</label>
+                    <comment>Get it from GA -> Admin -> Property -> Data Streams -> Measurement ID.</comment>
                 </field>
             </group>
         </section>

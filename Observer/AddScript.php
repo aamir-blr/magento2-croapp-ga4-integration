@@ -27,6 +27,14 @@ class AddScript implements ObserverInterface
      */
     protected $_dataHelper;
 
+    /**
+     * Constructor
+     *
+     * @param \Magento\Framework\View\LayoutInterface $_layout
+     * @param \Croapp\Integration\Logger\Logger $_logger
+     * @param \Croapp\Integration\Helper\Data $_dataHelper
+     * @param \Croapp\Integration\Model\Cro $_croModel
+     */
     public function __construct(
         LayoutInterface $_layout,
         \Croapp\Integration\Logger\Logger $_logger,
@@ -39,6 +47,12 @@ class AddScript implements ObserverInterface
         $this->_layout = $_layout;
     }
 
+    /**
+     * Insert gtag script to head
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {
@@ -63,6 +77,12 @@ class AddScript implements ObserverInterface
         }
     }
 
+    /**
+     * Add gtag events to head
+     *
+     * @param \Magento\Framework\View\Element\AbstractBlock $head
+     * @return void
+     */
     private function attachEvents($head)
     {
         if (!is_object($head)) {
@@ -78,6 +98,3 @@ class AddScript implements ObserverInterface
         }
     }
 }
-
-
-

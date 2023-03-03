@@ -21,7 +21,7 @@ class ViewItem implements ObserverInterface
     protected $_storeManager;
 
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface
+     * @var \Magento\CatalogInventory\Api\StockRegistryInterface
      */
     protected $_stockItemRepository;
 
@@ -40,6 +40,16 @@ class ViewItem implements ObserverInterface
      */
     protected $_croModel;
 
+    /**
+     * Constructor
+     *
+     * @param \Magento\Framework\Registry $_registry
+     * @param \Magento\CatalogInventory\Api\StockRegistryInterface $_stockItemRepository
+     * @param \Magento\Store\Model\StoreManagerInterface $_storeManager
+     * @param ConfigurableFactory $_configurableProductProductTypeConfigurableFactory
+     * @param \Croapp\Integration\Logger\Logger $_logger
+     * @param \Croapp\Integration\Model\Cro $_croModel
+     */
     public function __construct(
         Registry $_registry,
         StockRegistryInterface $_stockItemRepository,
@@ -56,6 +66,12 @@ class ViewItem implements ObserverInterface
         $this->_croModel = $_croModel;
     }
 
+    /**
+     * Add view_item event
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {

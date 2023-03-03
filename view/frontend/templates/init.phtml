@@ -1,11 +1,11 @@
 <?php
 ?>
-<script type="text/javascript">
+<script>
   require([
-    "https://www.googletagmanager.com/gtag/js?id=<?= $gaId; ?>"
+    "https://www.googletagmanager.com/gtag/js?id=<?= $block->escapeHtml($gaId); ?>"
   ]);
   window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '<?= $gaId; ?>');
+    gtag('config', '<?= $block->escapeHtml($gaId); ?>');
 </script>

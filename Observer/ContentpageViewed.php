@@ -16,6 +16,12 @@ class ContentpageViewed implements ObserverInterface
      */
     protected $_croModel;
 
+    /**
+     * Constructor
+     *
+     * @param \Croapp\Integration\Logger\Logger $_logger
+     * @param \Croapp\Integration\Model\Cro $_croModel
+     */
     public function __construct(
         \Croapp\Integration\Logger\Logger $_logger,
         \Croapp\Integration\Model\Cro $_croModel
@@ -24,6 +30,12 @@ class ContentpageViewed implements ObserverInterface
         $this->_croModel = $_croModel;
     }
 
+    /**
+     * Add content_page_viewed event
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {

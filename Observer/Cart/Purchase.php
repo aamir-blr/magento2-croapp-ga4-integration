@@ -32,20 +32,37 @@ class Purchase implements ObserverInterface
      */
     protected $_salesOrderFactory;
 
+    /**
+     * @var \Croapp\Integration\Helper\Data
+     */
     protected $_dataHelper;
 
+    /**
+     * Constructor
+     *
+     * @param \Magento\Store\Model\StoreManagerInterface $_storeManager
+     * @param \Magento\Sales\Model\OrderFactory $_salesOrderFactory
+     * @param \Croapp\Integration\Logger\Logger $_logger
+     * @param \Croapp\Integration\Model\Cro $_croModel
+     */
     public function __construct(
-        StoreManagerInterface $storeManager,
+        StoreManagerInterface $_storeManager,
         OrderFactory $_salesOrderFactory,
         \Croapp\Integration\Logger\Logger $_logger,
         \Croapp\Integration\Model\Cro $_croModel
     ) {
-        $this->_storeManager = $storeManager;
+        $this->_storeManager = $_storeManager;
         $this->_salesOrderFactory = $_salesOrderFactory;
         $this->_croModel = $_croModel;
         $this->_logger = $_logger;
     }
 
+    /**
+     * Add purchase event
+     *
+     * @param \Magento\Framework\Event\Observer $observer
+     * @return void
+     */
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {
