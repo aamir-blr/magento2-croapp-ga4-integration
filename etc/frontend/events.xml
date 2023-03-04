@@ -13,7 +13,7 @@
         <observer name="Croapp_Integration_view_item" instance="Croapp\Integration\Observer\Catalog\ViewItem"/>
     </event>
     <event name="controller_action_postdispatch_catalog_category_view">
-        <observer name="Croapp_Integration_collection_viewed" instance="Croapp\Integration\Observer\Catalog\CollectionViewed"/>
+        <observer name="Croapp_Integration_view_itemlist" instance="Croapp\Integration\Observer\Catalog\ViewItemlist"/>
     </event>
     <event name="search_query_load_after">
         <observer name="Croapp_Integration_products_searched" instance="Croapp\Integration\Observer\ProductsSearched"/>
@@ -32,6 +32,15 @@
     </event>
     <event name="checkout_onepage_controller_success_action">
         <observer name="Croapp_Integration_purchase" instance="Croapp\Integration\Observer\Cart\Purchase"/>
+    </event>
+    <event name="wishlist_add_product">
+        <observer name="Croapp_Integration_add_wishlist" instance="Croapp\Integration\Observer\Wishlist\AddWishlist"/>
+    </event>
+    <event name="catalog_product_compare_add_product">
+        <observer name="Croapp_Integration_add_compare" instance="Croapp\Integration\Observer\Compare\AddCompare"/>
+    </event>
+    <event name="catalog_product_compare_remove_product">
+        <observer name="Croapp_Integration_remove_compare" instance="Croapp\Integration\Observer\Compare\RemoveCompare"/>
     </event>
     <event name="customer_register_success">
         <observer name="Croapp_Integration_sign_up" instance="Croapp\Integration\Observer\Customer\SignUp"/>

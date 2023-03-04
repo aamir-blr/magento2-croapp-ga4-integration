@@ -50,7 +50,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         $eventMap = [
             'home_viewed'         =>  'home_viewed',
             'content_page_viewed' =>  'content_page_viewed',
-            'collection_viewed'   =>  'collection_viewed',
+            'view_item_list'      =>  'view_item_list',
             'view_item'           =>  'view_item',
             'view_search_results' =>  'view_search_results',
             'sign_up'             =>  'sign_up',
@@ -59,6 +59,9 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             'add_to_cart'         =>  'add_to_cart',
             'remove_from_cart'    =>  'remove_from_cart',
             'view_cart'           =>  'view_cart',
+            'add_to_wishlist'     =>  'add_to_wishlist',
+            'add_to_compare'      =>  'add_to_compare',
+            'remove_from_compare' =>  'remove_from_compare',
             'begin_checkout'      =>  'begin_checkout',
             'purchase'            =>  'purchase',
         ];

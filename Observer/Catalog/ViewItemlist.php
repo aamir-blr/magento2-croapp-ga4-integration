@@ -5,7 +5,7 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Registry;
 
-class CollectionViewed implements ObserverInterface
+class ViewItemlist implements ObserverInterface
 {
     /**
      * @var \Magento\Framework\Registry
@@ -40,7 +40,7 @@ class CollectionViewed implements ObserverInterface
     }
 
     /**
-     * Add collection_viewed event
+     * Add view_item_list event
      *
      * @param \Magento\Framework\Event\Observer $observer
      * @return void
@@ -48,7 +48,7 @@ class CollectionViewed implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {
-            $eventName = 'collection_viewed';
+            $eventName = 'view_item_list';
             $eventData = [];
             $category = $this->_registry->registry('current_category');
             if (is_object($category)) {

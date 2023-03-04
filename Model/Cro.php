@@ -9,6 +9,11 @@ use Magento\Framework\Stdlib\DateTime\DateTime;
 class Cro extends \Magento\Framework\Session\SessionManager
 {
     /**
+     * @var \Croapp\Integration\Logger\Logger
+     */
+    protected $_logger;
+
+    /**
      * @var \Magento\Framework\View\LayoutInterface
      */
     protected $_layout;
@@ -42,6 +47,7 @@ class Cro extends \Magento\Framework\Session\SessionManager
      * @param \Magento\Store\Model\StoreManagerInterface $_storeManager
      * @param \Magento\Framework\Session\SessionManagerInterface $_fwSession
      * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
+     * @param \Croapp\Integration\Logger\Logger $_logger
      * @param \Croapp\Integration\Helper\Data $_dataHelper
      */
     public function __construct(
@@ -49,12 +55,14 @@ class Cro extends \Magento\Framework\Session\SessionManager
         StoreManagerInterface $_storeManager,
         SessionManagerInterface $_fwSession,
         DateTime $date,
+        \Croapp\Integration\Logger\Logger $_logger,
         \Croapp\Integration\Helper\Data $_dataHelper
     ) {
         $this->_layout = $_layout;
         $this->_storeManager = $_storeManager;
         $this->_fwSession = $_fwSession;
         $this->date = $date;
+        $this->_logger = $_logger;
         $this->_dataHelper = $_dataHelper;
     }
 
@@ -181,6 +189,7 @@ class Cro extends \Magento\Framework\Session\SessionManager
             $cartItem['item_name'] = str_replace("'", "", $item->getName());
             $cartItem['price'] = $item->getPrice();
             $cartItem['quantity'] = $item->getQty();
+            $cartItem['item_variant'] = $item->getSku();
 
             // additional params
             $cartItem['item_sku'] = $item->getSku();
