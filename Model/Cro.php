@@ -122,7 +122,7 @@ class Cro extends \Magento\Framework\Session\SessionManager
         }
         $gaEvents = $this->_fwSession->getGaEvents();
         $eventData['event'] = $this->_dataHelper->getEventType($eventName);
-        $eventLimit = 3;
+        $eventLimit = 10;
         if (empty($gaEvents)) {
             $gaEvents = [];
             $gaEvents[] = $this->addMetaData($eventData);
