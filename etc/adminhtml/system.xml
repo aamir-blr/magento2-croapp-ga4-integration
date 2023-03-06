@@ -8,12 +8,20 @@
             <label>CRO App / GA 4 Configuration</label>
             <tab>croapp_config</tab>
             <resource>Croapp_Integration::config</resource>
-            <group id="configuration" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>CRO App / GA 4 Configuration</label>
+            <group id="ga_configuration" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>GA-4 Configuration</label>
                 <comment></comment>
                 <field id="gaId" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>GA-4 Measurement ID</label>
                     <comment>Get it from GA -> Admin -> Property -> Data Streams -> Measurement ID.</comment>
+                </field>
+            </group>
+            <group id="croapp_configuration" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>CRO App Configuration</label>
+                <comment>This is required, only if you plan to use CRO App Features - https://croapp.com/</comment>
+                <field id="accountId" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cro App Account ID</label>
+                    <comment>Contact - help@croapp.com</comment>
                 </field>
             </group>
         </section>

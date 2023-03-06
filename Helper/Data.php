@@ -90,7 +90,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getGaId()
     {
-        $gaId = $this->scopeConfig->getValue('croapp/configuration/gaId', ScopeInterface::SCOPE_STORE);
+        $gaId = $this->scopeConfig->getValue('croapp/ga_configuration/gaId', ScopeInterface::SCOPE_STORE);
         if (empty($gaId)) {
             return false;
         } else {
