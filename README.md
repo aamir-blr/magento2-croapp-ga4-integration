@@ -2,7 +2,7 @@
 
 ---
 
-## Plugin to help integrate Google Analytics 4 and [Cro App](https://croapp.com/) Features in Magento 2
+## Plugin to help integrate Google Analytics 4 And [Cro App](https://croapp.com/) Features in Magento 2
 
 ## Installation & Configuration
 
@@ -25,6 +25,8 @@ php bin/magento cache:flush
 
 #### Get Measurement ID From GA
 
+<img src="https://storage.googleapis.com/support-kms-prod/4vzOnPW93ZjrGTZKfeIJYHXXPmpfCmc0UMHy"  width="250">
+
 - Login to your google analytics account
 - Navigate to `admin` -> select the desired account & property
 - Click on `Data Streams` in Property
@@ -33,12 +35,16 @@ php bin/magento cache:flush
 
 #### Add Measurement ID In Magento
 
+<img src="https://storage.googleapis.com/ca-assets/magento2-ga4-plugin/ga4-magento-admin-mennu.png"  width="125">
+
 - Login to magento 2 admin panel
 - Navigate to `Stores` -> `Configuration`
 - From the left sidebar/menu, click on `CRO App / GA 4 Configuration` under `CRO App / GA 4`
 - Enter the `MEASUREMENT ID` copied from previous step in `GA 4 Configuration Section` -> `GA-4 Measurement ID`
 - Click `Save Config` on top right of the page
 - Clear cache from `System` ⇨ `Cache Management`
+
+<img src="https://storage.googleapis.com/ca-assets/magento2-ga4-plugin/mage2-ga4-config.png"  width="250">
 
 ## List of google analytics 4 events added via this plugin
 
