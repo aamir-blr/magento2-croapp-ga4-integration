@@ -106,12 +106,6 @@ class Purchase implements ObserverInterface
             $eventData['payment_method'] = $order->getPayment()->getMethod();
             $eventData['status'] = $order->getStatus();
 
-            // $ccData['event_data']['shipping_amount'] = $cc->getValue($order->getShippingAmount());
-            // $ccData['event_data']['tax_amount'] = $cc->getValue($order->getTaxAmount());
-            // $ccData['event_data']['discount_amount'] = $cc->getValue($order->getDiscountAmount());
-            // $ccView['event_data']['subtotal'] = $cc->getValue($order->getSubtotal());
-            // $ccData['event_data']['base_total'] = $cc->getValue($order->getBaseGrandTotal());
-
             $eventName = 'purchase';
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
