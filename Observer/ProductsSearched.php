@@ -56,7 +56,7 @@ class ProductsSearched implements ObserverInterface
             }
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
-            $this->_logger->error(null, $e->getMessage());
+            $this->_logger->error($e->getMessage());
         }
     }
 }
