@@ -130,12 +130,36 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     }
 
     /**
-     * Check if module is enabled
+     * Check if module i.e either GA4 or CRO App is enabled
      */
     public function isEnabled()
     {
+        if ($this->isGaEnabled() || $this->isCappEnabled()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    /**
+     * Check if GA4 is enabled
+     */
+    public function isGaEnabled()
+    {
         if ($this->getGaId()) {
-            return 1;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Check if CRO App is enabled
+     */
+    public function isCappEnabled()
+    {
+        if ($this->getCappEnabled() && $this->getAccountId()) {
+            return true;
         } else {
             return false;
         }
@@ -151,6 +175,20 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
             return false;
         } else {
             return $gaId;
+        }
+    }
+
+    /**
+     * Get CRO APP Enabled Dropdown Value (set in magento config)
+     */
+    public function getCappEnabled()
+    {
+        $scope = ScopeInterface::SCOPE_STORE;
+        $cappEnabled = $this->scopeConfig->getValue('croapp/croapp_configuration/cappEnabled', $scope);
+        if (!empty($cappEnabled) && $cappEnabled === '1') {
+            return true;
+        } else {
+            return false;
         }
     }
 

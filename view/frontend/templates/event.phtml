@@ -3,6 +3,8 @@
 ?>
 <!-- Dl Event-->
 <script type='text/javascript' data-cfasync="false">
-    gtag('event', '<?= $block->escapeHtml($event); ?>', <?= $eventData; ?>);
+  window.dataLayer = window.dataLayer || [];
+  function gEvent(){dataLayer.push(arguments);}
+  gEvent('event', '<?= $block->escapeHtml($event); ?>', <?= $eventData; ?>);
 </script>
 <!-- Dl Event -->

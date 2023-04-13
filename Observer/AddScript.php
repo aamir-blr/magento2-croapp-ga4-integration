@@ -56,11 +56,6 @@ class AddScript implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         try {
-            $initScript = $this->_croModel->getInitScript();
-            if (empty($initScript)) {
-                return;
-            }
-
             $layout = $this->_layout;
             if (!is_object($layout)) {
                 return;
@@ -70,7 +65,17 @@ class AddScript implements ObserverInterface
             if (!is_object($head)) {
                 return;
             }
-            $head->append($initScript);
+
+            $gaInitScript = $this->_croModel->getGaInitScript();
+            if (!empty($gaInitScript)) {
+                $head->append($gaInitScript);
+            }
+
+            $cappInitScript = $this->_croModel->getCappInitScript();
+            if (!empty($cappInitScript)) {
+                $head->append($cappInitScript);
+            }
+
             $this->attachEvents($head);
         } catch (\Exception $e) {
             $this->_logger->error($e->getMessage());
@@ -78,7 +83,7 @@ class AddScript implements ObserverInterface
     }
 
     /**
-     * Add gtag events to head
+     * Add gevents to head
      *
      * @param \Magento\Framework\View\Element\AbstractBlock $head
      * @return void

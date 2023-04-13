@@ -67,11 +67,11 @@ class Cro extends \Magento\Framework\Session\SessionManager
     }
 
     /**
-     * Get initial script block to be added in the page
+     * Get GA4 initial script block to be added in the page
      */
-    public function getInitScript()
+    public function getGaInitScript()
     {
-        if ($this->_dataHelper->isEnabled() == false) {
+        if ($this->_dataHelper->isGaEnabled() == false) {
             return;
         }
 
@@ -80,7 +80,7 @@ class Cro extends \Magento\Framework\Session\SessionManager
             return;
         }
         $script = $this->_layout->createBlock(\Croapp\Integration\Block\Script::class)
-                ->setTemplate('Croapp_Integration::init.phtml')
+                ->setTemplate('Croapp_Integration::ga-init.phtml')
                 ->assign([
                     'gaId' => $gaId
                 ]);
@@ -88,13 +88,35 @@ class Cro extends \Magento\Framework\Session\SessionManager
     }
 
     /**
-     * Get gtag event script block to be added in the page
+     * Get CRO App initial script block to be added in the page
+     */
+    public function getCappInitScript()
+    {
+        if ($this->_dataHelper->isCappEnabled() == false) {
+            return;
+        }
+
+        $cappId = $this->_dataHelper->getAccountId();
+        if (empty($cappId)) {
+            return;
+        }
+
+        $script = $this->_layout->createBlock(\Croapp\Integration\Block\Script::class)
+                ->setTemplate('Croapp_Integration::capp-init.phtml')
+                ->assign([
+                    'cappId' => $cappId
+                ]);
+        return $script;
+    }
+    
+    /**
+     * Get gevent script block to be added in the page
      *
      * @param array $eventData - event data to be added to gtag script
      */
     public function getEventScript($eventData = [])
     {
-        if ($this->_dataHelper->isEnabled() == false) {
+        if ($this->_dataHelper->isGaEnabled() == false) {
             return;
         }
 
@@ -110,14 +132,14 @@ class Cro extends \Magento\Framework\Session\SessionManager
     }
 
     /**
-     * Store gtag events data in session
+     * Store gevents data in session
      *
      * @param string $eventName - name of the event
      * @param array $eventData - event data to be added to gtag script
      */
     public function storeGaEvents($eventName, $eventData = [])
     {
-        if ($this->_dataHelper->isEnabled() == false) {
+        if ($this->_dataHelper->isGaEnabled() == false) {
             return;
         }
         $gaEvents = $this->_fwSession->getGaEvents();
@@ -137,11 +159,11 @@ class Cro extends \Magento\Framework\Session\SessionManager
     }
 
     /**
-     * Fetch gtag events data in session
+     * Fetch gevents data in session
      */
     public function fetchGaEvents()
     {
-        if ($this->_dataHelper->isEnabled() == false) {
+        if ($this->_dataHelper->isGaEnabled() == false) {
             return;
         }
 

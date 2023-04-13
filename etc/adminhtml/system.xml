@@ -18,8 +18,13 @@
             </group>
             <group id="croapp_configuration" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>CRO App Configuration</label>
-                <comment>This is required, only if you plan to use CRO App Features - https://croapp.com/</comment>
-                <field id="accountId" translate="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <comment>Optional, contact help@croapp.com - https://croapp.com/</comment>
+                <field id="cappEnabled" translate="label" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable CRO App</label>
+                    <comment>Enable CRO App, contact help@croapp.com for more info.</comment>
+                    <source_model>Croapp\Integration\Model\CappEnabled</source_model>
+                </field>
+                <field id="accountId" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Cro App Account ID</label>
                     <comment>Contact - help@croapp.com</comment>
                 </field>
