@@ -25,7 +25,7 @@ class GenAccountId implements ObserverInterface
      */
     public function __construct(
         \Croapp\Integration\Helper\Data $_dataHelper,
-        \Croapp\Integration\Logger\Logger $_logger,
+        \Croapp\Integration\Logger\Logger $_logger
     ) {
         $this->_dataHelper = $_dataHelper;
         $this->_logger = $_logger;

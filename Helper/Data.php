@@ -81,7 +81,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
         ManagerInterface $_messageManager,
         StoreManagerInterface $_storeManager,
         Curl $_curlClient,
-        \Croapp\Integration\Logger\Logger $_logger,
+        \Croapp\Integration\Logger\Logger $_logger
     ) {
         $this->scopeConfig = $scopeConfig;
         $this->_moduleList = $moduleList;
