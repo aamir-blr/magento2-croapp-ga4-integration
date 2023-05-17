@@ -9,6 +9,7 @@ use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\HTTP\Client\Curl;
+use Psr\Log\LogLevel;
 
 class Data extends \Magento\Framework\App\Helper\AbstractHelper
 {
@@ -259,6 +260,6 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function sanitizeParam($param)
     {
-        return strip_tags($param);
+        return $param ? strip_tags($param) : '';
     }
 }

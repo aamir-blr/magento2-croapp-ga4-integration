@@ -8,7 +8,7 @@
     </type>
     <type name="Croapp\Integration\Logger\Logger">
         <arguments>
-            <argument name="name" xsi:type="string">myLoggerName</argument>
+            <argument name="name" xsi:type="string">croAppLogger</argument>
             <argument name="handlers"  xsi:type="array">
                 <item name="system" xsi:type="object">Croapp\Integration\Logger\Handler</item>
             </argument>

@@ -4,6 +4,7 @@ namespace Croapp\Integration\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\View\LayoutInterface;
+use Psr\Log\LogLevel;
 
 class AddScript implements ObserverInterface
 {
@@ -78,7 +79,7 @@ class AddScript implements ObserverInterface
 
             $this->attachEvents($head);
         } catch (\Exception $e) {
-            $this->_logger->error($e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, $e->getMessage());
         }
     }
 

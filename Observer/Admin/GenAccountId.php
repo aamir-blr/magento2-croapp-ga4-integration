@@ -4,6 +4,7 @@ namespace Croapp\Integration\Observer\Admin;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Message\ManagerInterface;
+use Psr\Log\LogLevel;
 
 class GenAccountId implements ObserverInterface
 {
@@ -42,7 +43,7 @@ class GenAccountId implements ObserverInterface
         try {
             $this->_dataHelper->genAccIdIfEmpty();
         } catch (\Exception $e) {
-            $this->_logger->error($e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, $e->getMessage());
         }
     }
 }

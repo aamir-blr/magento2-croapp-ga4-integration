@@ -9,6 +9,7 @@ use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\View\LayoutInterface;
 use Magento\Sales\Model\OrderFactory;
 use \Psr\Log\LoggerInterface;
+use Psr\Log\LogLevel;
 
 class Purchase implements ObserverInterface
 {
@@ -109,7 +110,7 @@ class Purchase implements ObserverInterface
             $eventName = 'purchase';
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
-            $this->_logger->log(null, $e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, $e->getMessage());
         }
     }
 }

@@ -3,6 +3,7 @@ namespace Croapp\Integration\Observer\Customer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
+use Psr\Log\LogLevel;
 
 class Login implements ObserverInterface
 {
@@ -44,7 +45,7 @@ class Login implements ObserverInterface
             $eventData = $this->_croModel->getCustomerData($customer);
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
-            $this->_logger->error(null, $e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, null, $e->getMessage());
         }
     }
 }

@@ -3,6 +3,7 @@ namespace Croapp\Integration\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
+use Psr\Log\LogLevel;
 
 class HomeViewed implements ObserverInterface
 {
@@ -43,7 +44,7 @@ class HomeViewed implements ObserverInterface
             $eventData= [];
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
-            $this->_logger->error(null, $e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, $e->getMessage());
         }
     }
 }

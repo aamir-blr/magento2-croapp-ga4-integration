@@ -7,6 +7,7 @@ use Magento\Framework\Registry;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\ConfigurableProduct\Model\Product\Type\ConfigurableFactory;
+use Psr\Log\LogLevel;
 
 class ViewItem implements ObserverInterface
 {
@@ -111,7 +112,7 @@ class ViewItem implements ObserverInterface
             }
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
-            $this->_logger->error($e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, $e->getMessage());
         }
     }
 }

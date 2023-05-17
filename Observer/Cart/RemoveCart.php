@@ -5,6 +5,7 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Checkout\Model\Session;
+use Psr\Log\LogLevel;
 
 class RemoveCart implements ObserverInterface
 {
@@ -77,7 +78,7 @@ class RemoveCart implements ObserverInterface
             }
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
-            $this->_logger->error($e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, $e->getMessage());
         }
     }
 }

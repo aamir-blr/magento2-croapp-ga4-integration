@@ -5,6 +5,7 @@ use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Checkout\Model\Session;
 use Magento\Store\Model\StoreManagerInterface;
+use Psr\Log\LogLevel;
 
 class AddWishlist implements ObserverInterface
 {
@@ -66,7 +67,7 @@ class AddWishlist implements ObserverInterface
             }
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
-            $this->_logger->error($e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, $e->getMessage());
         }
     }
 }

@@ -4,6 +4,7 @@ namespace Croapp\Integration\Observer\Catalog;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Registry;
+use Psr\Log\LogLevel;
 
 class ViewItemlist implements ObserverInterface
 {
@@ -58,7 +59,7 @@ class ViewItemlist implements ObserverInterface
             }
             $this->_croModel->storeGaEvents($eventName, $eventData);
         } catch (\Exception $e) {
-            $this->_logger->error($e->getMessage());
+            $this->_logger->log(LogLevel::WARNING, $e->getMessage());
         }
     }
 }
