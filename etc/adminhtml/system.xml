@@ -18,10 +18,16 @@
             </group>
             <group id="croapp_configuration" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>CRO App Configuration</label>
-                <comment>Optional, contact help@croapp.com - https://croapp.com/</comment>
+                <comment><![CDATA[Optional, contact help@croapp.com - <a href="https://croapp.com/">CROApp.com</a>]]></comment>
                 <field id="cappEnabled" translate="label" sortOrder="1" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable CRO App</label>
-                    <comment>Enable CRO App, contact help@croapp.com for more info.</comment>
+                    <comment>
+                        <![CDATA[
+                            Increase your sales with <a href="https://croapp.com/cro-social-proof?utm_source=magento2" target="_blank">CRO Social Proof</a> - the easiest way to build trust and boost conversions!
+                            <br/><br/><strong style="color:red">Limited Offer!</strong> - Launch <a href="https://croapp.com/cro-social-proof?utm_source=magento2 target="_blank"">Social Proof</a> For <strong style="color:red">FREE</strong>, Easy setup, no coding needed!
+                            <br/> Contact - help@croapp.com for more info.
+                        ]]>
+                    </comment>
                     <source_model>Croapp\Integration\Model\CappEnabled</source_model>
                 </field>
                 <field id="accountId" translate="label" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">

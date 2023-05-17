@@ -211,7 +211,7 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function genAccIdIfEmpty()
     {
-        if (!$this->getAccountId()) {
+        if (!$this->getAccountId() && $this->getCappEnabled()) {
             $email = $this->scopeConfig->getValue('trans_email/ident_general/email', ScopeInterface::SCOPE_STORE);
             $store = $this->_storeManager->getStore();
             $baseUrl = $store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_WEB);
